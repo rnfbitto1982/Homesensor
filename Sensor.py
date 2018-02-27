@@ -1,40 +1,62 @@
-#!/user/bin/env python
 import time
-
+import notifications
 import sensors
+import random
 
-class Sensor(object):
-    """Homesensor is a security system for pyhton"""
+class guardian(object):
 
     def __init__(self):
-        super(Sensor, self).__init__()
+        super(Guardian, self).__init__()
+        self.binary_sensors_names = [
+            "bsensors1", "bsensors2", "bsensors3"
+        ]
+        self.numeric_sensors = []
+        self.binary_sensors = []
+        self.sensors = {}
+        self.sensors["binary"] = {}
+        self.sensors["numeric"] {}
 
-    def create_sensor(self):
-        self.mbs = sensors.mocksensors.MockBinarySensor("sensor1")
-        self.mbs = sensors.mocksensors.MockNumericSensor("sensor2")
+        self.notify = notifications.MockNotification()
+        self.already_n =[]
+
+    def create_sensors(self):
+        for name in self.numeric_sensors_names:
+            self.numeric_sensors_append(
+                sensor.mocksensors.MockNumericSensor(name)
+            )
+        for name in self.binary_sensors_names:
+            self.binary_sensors.append(
+                sensors.mocksensors.MockNumericSensor(name)
+            )
         pass
 
     def get_state(self):
-        #Uptade sensors
-        self.mbs.update_state()
-        self.mbs.update_value()
-        #get values from sensors
-        value1 = self.mbs.get_state()
-        value2 = self.mbs.get_value()
-        return (value1, value2)
+        # update sensors
+        for sensor in self.binary_sensors:
+            sensor.update_state()
+            self.sensor["binary"][sensor.name] =  sensor.get_state()
 
-    def main():
-        # crearsensores
-        self.crate_sensors()
+        for sensor in self.numeric_sensors:
+            sensors.update_value()
+            self.sensor["numeric"][sensor.name] =  sensor.get_value()
+        return sensors
+
+    def main(self):
+        #crearsensores
+        self.create_sensors()
         while True:
             state = self.get_state()
-        #   leersensores()
-        #       if condiciones:
-        #           notificar()
-            print(state)
-            time.sleep(1)
+
+            for ns in self.sensors["numeric"]:
+                if self.sensors["numeric"][ns] >15.0 \
+                    and ns not in self.already_n:
+                    self.notify.notify(ns)
+                    self.already_n.append(ns)
+            time.sleep(0.2)
         pass
 
+
 if __name__ == '__main__':
+    random.speed(1)
     sensor = Sensor()
     sensor.main()
