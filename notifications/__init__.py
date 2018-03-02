@@ -1,5 +1,4 @@
-from .main import notifications
-from .binary import BinarySensor
-from .mocksensors import MockBinarySensor
+from .main import Notification, MockNotification
+from .telegram import TelegramNotification
 
-__all__ = ["Sensor", "main", "binary", "mocksensors"]
+__all__=["Notification","MockNotification", TelegramNotification]
