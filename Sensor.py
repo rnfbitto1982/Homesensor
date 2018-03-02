@@ -1,14 +1,18 @@
 import time
+import pprint as pp
 import notifications
 import sensors
 import random
 
-class guardian(object):
-
+class Guardian(object):
+    """Homesensor is a security system for python"""
     def __init__(self):
         super(Guardian, self).__init__()
         self.binary_sensors_names = [
             "bsensors1", "bsensors2", "bsensors3"
+        ]
+        self.numeric_sensors_names = [
+            "nsensors1", "nsensors2", "nsensors3"
         ]
         self.numeric_sensors = []
         self.binary_sensors = []
@@ -16,8 +20,9 @@ class guardian(object):
         self.sensors["binary"] = {}
         self.sensors["numeric"] {}
 
-        self.notify = notifications.MockNotification()
-        self.already_n =[]
+        # self.notify = notifications.MockNotification()
+        self.notify = notifications.TelegramNotification()
+        self.already_n = []
 
     def create_sensors(self):
         for name in self.numeric_sensors_names:
